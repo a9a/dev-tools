@@ -1,0 +1,37 @@
+kubectl port-forward redis-master-XXX 6379:6379 
+kubectl expose pods/reids --port=26379 --target-port=33100    --name=expose-redis --type=NodePort
+kubectl expose deployment redis --type=NodePort --name=expose-redis
+
+
+kubectl exec -it service-A  -- kill -QUIT 1
+kubectl exec --stdin --tty service-A -- /bin/bash
+
+kubectl exec --stdin --tty service-A -- /bin/bash -c "env"
+
+
+kubectl create secret generic ssl-keystore-cert --from-file=./keystore.jks
+
+# performance
+kubectl top pod --sort-by=cpu
+kubectl top pod <pod-name> -n <fed-name> --containers
+# jmap/histo/gc.log
+k exec service-A -- jcmd 1 GC.class_histogram
+        - name: JAVA_OPTIONS
+          value: -Xlog:gc*:/deployments/gc.log:time:filecount=5,filesize=1024M -Xlog:class+unload=off
+            -XX:+UseG1GC
+
+kubectl get nodes -o jsonpath='{range .items[*]}{.status.addresses[?(@.type=="InternalIP")].address}{"\n"}{end}'
+export KUBECONFIG=~/.kube/config:~/my-cluster-config  
+kubectl config view --flatten > ~/.kube/combined-config  
+
+
+##### HELM
+helm status
+	--reuse-values | --dry-run
+	uninstall --keep-history
+helm install --wait 
+
+
+helm upgrade service-A --version 3.00 --set valueA.val --reuse-values  
+
+helm template -s templates/deplo.yaml . --values ../values.yaml --set serviceA.redis=123 --set-file serviceA.file1=../file.xml

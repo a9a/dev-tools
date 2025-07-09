@@ -1,0 +1,8 @@
+alias kpodab="kubectl get po -l 'app.kubernetes.io/instance in (service-a,service-b)'"
+alias bat=batcat
+#
+alias startredis="docker-compose -f /home/aga/workspace/docker/redis/docker-compose.yml -f /home/aga/workspace/docker/redis/docker-compose-dev.yml up -d redis"
+alias startredisi="docker-compose -f /home/aga/workspace/docker/redis/docker-compose.yml -f /home/aga/workspace/docker/redis/docker-compose-dev.yml up -d redisinsight"
+alias startrediscli="docker-compose -f /home/aga/workspace/docker/redis/docker-compose.yml -f /home/aga/workspace/docker/redis/docker-compose-dev.yml run cli"
+alias sshc="~/workspace/tools/ssh_gui"
+alias catcolor='function catcolorf() { cat "$1" | ccze -A; }; catcolorf'

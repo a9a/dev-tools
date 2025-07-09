@@ -1,0 +1,11 @@
+# docker save busybox > busybox.tar
+version: '3'
+services:
+  trivy:
+    image: aquasec/trivy:latest
+    volumes:
+      - ./data:/root/.cache/
+      - ./images:/images:z
+      - ./report/:/images/report:z
+    #command: "image --skip-db-update --input /images/service-a.tar"
+    command: "image --skip-java-db-update --input /images/service-a.tar --output /images/report/report.txt --format table"
